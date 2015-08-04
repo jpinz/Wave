@@ -1,14 +1,15 @@
 package me.jpinz.wave.ui.fragments;
 
-import android.app.Fragment;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +25,7 @@ import me.jpinz.wave.models.Album;
 /**
  * Created by Julian on 7/18/2015.
  */
-public class AlbumsFragment extends Fragment{
+public class AlbumsFragment extends Fragment {
 
     private RecyclerView albumView;
 
@@ -43,11 +44,11 @@ public class AlbumsFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Log.d("AFRAG", "Intialized!");
         setHasOptionsMenu(true);
 
         mAlbumItems = new ArrayList<Album>();
         albumView = (RecyclerView) view.findViewById(R.id.album_list);
-
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         albumView.setLayoutManager(layoutManager);
@@ -62,7 +63,7 @@ public class AlbumsFragment extends Fragment{
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         menu.clear();
-        inflater.inflate(R.menu.menu_album_fragment,menu
+        inflater.inflate(R.menu.menu_fragment,menu
         );
     }
 

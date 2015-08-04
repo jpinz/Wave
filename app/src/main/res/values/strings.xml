@@ -32,5 +32,7 @@
     <string name="libraries">Libraries</string>
     <string name="title_activity_intro">WV</string>
     <string name="action_about">About</string>
+    <string name="title_activity_home">Wave</string>
+    <string name="view_as">View As</string>
 
 </resources>

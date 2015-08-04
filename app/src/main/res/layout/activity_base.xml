@@ -1,10 +1,8 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:clipToPadding="false">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -28,6 +26,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
+
+
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
@@ -44,5 +44,6 @@
         app:borderWidth="0dp"
         android:src="@drawable/ic_play" />
 
+    <!--<include layout="@layout/bottom_action_bar"/>-->
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

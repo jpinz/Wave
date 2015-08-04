@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -23,7 +25,6 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Adapter;
 import android.widget.GridView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -33,7 +34,7 @@ import me.jpinz.wave.ui.activities.BaseActivity;
 import me.jpinz.wave.ui.activities.SettingsActivity;
 import me.jpinz.wave.utils.WaveUtils;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
 
     private static final String DEBUG_TAG = "Gestures";
 
@@ -85,7 +86,6 @@ public class MainActivity extends BaseActivity {
         }
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
 
         }
         final ActionBar ab = getSupportActionBar();
@@ -100,15 +100,6 @@ public class MainActivity extends BaseActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        if (navigationView != null) {
-            setupDrawerContent(navigationView);
-        }
-
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        if (viewPager != null) {
-            setupViewPager(viewPager);
-        }
 
         viewPager.setCurrentItem(restartTab,false);
 
@@ -120,7 +111,6 @@ public class MainActivity extends BaseActivity {
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        mDetector = new GestureDetector(new GestureListener());
 
         fab.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -133,89 +123,6 @@ public class MainActivity extends BaseActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-    }
-
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new ArtistFragment(), "Artists");
-        if (albumViewType == 1) {
-            adapter.addFragment(new AlbumFragment(), "Albums");
-        } else {
-            adapter.addFragment(new AlbumGridFragment(), "Albums");
-        }
-        adapter.addFragment(new SongsFragment(), "Songs");
-        adapter.addFragment(new PlaylistFragment(), "Playlists");
-
-        viewPager.setAdapter(adapter);
-    }
-
-    private void setupDrawerContent(NavigationView navigationView) {
-
-        //TODO: add highlight to the current tab in the navDrawer.
-
-
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        if (menuItem.getItemId() == R.id.nav_changelog) {
-                            DialogFragment dialogFragment = new ChangelogDialogFragment();
-                            dialogFragment.show(getFragmentManager(), "dialog");
-                        } else if (menuItem.getItemId() == R.id.nav_settings) {
-                            Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
-                            startActivity(i);
-                        } else if (menuItem.getItemId() == R.id.nav_about) {
-
-                            //((TextView) findViewById(R.id.about_body)).setText(Html.fromHtml(getResources().getString(R.string.about)));
-                            //((TextView) findViewById(R.id.about_links)).setMovementMethod(LinkMovementMethod.getInstance());
-                            //((TextView) findViewById(R.id.about_links)).setText(Html.fromHtml(getResources().getString(R.string.about_links)));
-
-                            /*new MaterialDialog.Builder(getApplicationContext())
-                                    .title(R.string.action_about)
-                                    .customView(R.layout.about_view, true)
-                                    .neutralText(R.string.ok)
-                                    .show();*/
-                            materialDialog.icon(getResources().getDrawable(R.drawable.ic_launcher));
-
-                            materialDialog.callback(new MaterialDialog.ButtonCallback() {
-                                @Override
-                                public void onPositive(MaterialDialog dialog) {
-                                    dialog.cancel();
-                                }
-
-                                @Override
-                                public void onNeutral(MaterialDialog dialog) {
-                                    libs.start(dialog.getContext());
-                                }
-                            });
-
-                            materialDialog.show();
-
-                        } else if (menuItem.getItemId() == R.id.nav_artists) {
-                            viewPager.setCurrentItem(0, true);
-                        } else if (menuItem.getItemId() == R.id.nav_albums) {
-                            viewPager.setCurrentItem(1, true);
-                        } else if (menuItem.getItemId() == R.id.nav_songs) {
-                            viewPager.setCurrentItem(2, true);
-                        }
-                        mDrawerLayout.closeDrawers();
-                        return true;
-                    }
-                });
     }
 
     @Override
