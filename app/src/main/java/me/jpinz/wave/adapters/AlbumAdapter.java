@@ -4,12 +4,10 @@ package me.jpinz.wave.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,12 +23,12 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import me.jpinz.wave.R;
 import me.jpinz.wave.models.Album;
+import me.jpinz.wave.ui.activities.ProfileActivity;
 import me.jpinz.wave.utils.WaveUtils;
 
 public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -129,21 +127,15 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         }
                     });
 
-
-
-
-
         //set position as tag
         albumView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent i = new Intent(mContext, null);
+                Intent i = new Intent(mContext, ProfileActivity.class);
                 i.putExtra("ALBUM_NAME", albums.get(pos).getTitle());
-                //int position= (Integer)v.getTag();
                 i.putExtra("ALBUM_ART", albums.get(pos).getAlbumArt());
-                WaveUtils.album = albums.get(pos);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mContext.startActivity(i);*/
+                mContext.startActivity(i);
                 Toast.makeText(mContext,albums.get(pos).getTitle(),Toast.LENGTH_SHORT).show();
 
             }

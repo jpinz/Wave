@@ -9,12 +9,13 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Andrew Neal (andrewdneal@gmail.com)
  */
+
 public class Song {
 
     /**
      * The unique Id of the song
      */
-    public long mSongId;
+    public String mSongId;
 
     /**
      * The song name
@@ -32,9 +33,9 @@ public class Song {
     public String mAlbumName;
 
     /**
-     * The song duration in seconds
+     * The song duration
      */
-    public int mDuration;
+    public String mDuration;
 
     /**
      * Constructor of <code>Song</code>
@@ -43,11 +44,11 @@ public class Song {
      * @param songName The name of the song
      * @param artistName The song artist
      * @param albumName The song album
-     * @param duration The duration of a song in seconds
+     * @param duration The duration of a song
      */
-    public Song(final long songId, final String songName, final String artistName,
-                final String albumName, final int duration) {
-        mSongId = songId;
+    public Song(final String songId, final String songName, final String artistName,
+                final String albumName, final String duration) {
+        mSongId = new String(songId);
         mSongName = songName;
         mArtistName = artistName;
         mAlbumName = albumName;
@@ -63,8 +64,8 @@ public class Song {
         int result = 1;
         result = prime * result + (mAlbumName == null ? 0 : mAlbumName.hashCode());
         result = prime * result + (mArtistName == null ? 0 : mArtistName.hashCode());
-        result = prime * result + mDuration;
-        result = prime * result + (int) mSongId;
+        result = prime * result + (mDuration == null ? 0 : mDuration.hashCode());
+        result = prime * result + (mSongId == null ? 0 : mSongId.hashCode());
         result = prime * result + (mSongName == null ? 0 : mSongName.hashCode());
         return result;
     }
@@ -83,20 +84,40 @@ public class Song {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Song other = (Song) obj;
-        if (mSongId != other.mSongId) {
+        final Song other = (Song)obj;
+        if (mAlbumName == null) {
+            if (other.mAlbumName != null) {
+                return false;
+            }
+        } else if (!mAlbumName.equals(other.mAlbumName)) {
             return false;
         }
-        if (!TextUtils.equals(mAlbumName, other.mAlbumName)) {
+        if (mArtistName == null) {
+            if (other.mArtistName != null) {
+                return false;
+            }
+        } else if (!mArtistName.equals(other.mArtistName)) {
             return false;
         }
-        if (!TextUtils.equals(mArtistName, other.mArtistName)) {
+        if (mDuration == null) {
+            if (other.mDuration != null) {
+                return false;
+            }
+        } else if (!mDuration.equals(other.mDuration)) {
             return false;
         }
-        if (mDuration != other.mDuration) {
+        if (mSongId == null) {
+            if (other.mSongId != null) {
+                return false;
+            }
+        } else if (!mSongId.equals(other.mSongId)) {
             return false;
         }
-        if (!TextUtils.equals(mSongName, other.mSongName)) {
+        if (mSongName == null) {
+            if (other.mSongName != null) {
+                return false;
+            }
+        } else if (!mSongName.equals(other.mSongName)) {
             return false;
         }
         return true;
@@ -108,33 +129,5 @@ public class Song {
     @Override
     public String toString() {
         return mSongName;
-    }
-
-    public long getID() {
-        return mSongId;
-    }
-
-    public String getTitle() {
-        return mSongName;
-    }
-
-    public String getArtist() {
-        if (mArtistName.equals("<unknown>")) {
-            return "unknown";
-        }
-        return mArtistName;
-    }
-
-    public String getDuration() {
-        String thisDuration = String.format("%d:%02d",
-                TimeUnit.MILLISECONDS.toMinutes(mDuration),
-                TimeUnit.MILLISECONDS.toSeconds(mDuration) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mDuration))
-        );
-        return thisDuration;
-    }
-
-    public String getAlbumName() {
-        return mAlbumName;
     }
 }

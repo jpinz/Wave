@@ -101,7 +101,6 @@ public class AlbumsFragment extends Fragment {
                 String thisArtist = musicCursor.getString(artistColumn);
                 String thisAlbum = musicCursor.getString(albumColumn);
                 String thisYear = musicCursor.getString(albumYear);
-                //Log.d("ART", "Album art: " + thisArtPath);
                 mAlbumItems.add(new Album(thisId, thisAlbum, thisArtist, thisTrack, thisYear, thisArtPath));
             }
 

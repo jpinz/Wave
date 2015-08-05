@@ -27,7 +27,6 @@ public class HomeActivity extends BaseActivity {
             //        .replace(R.id.activity_base_content, new AlbumsFragment()).commit();
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
