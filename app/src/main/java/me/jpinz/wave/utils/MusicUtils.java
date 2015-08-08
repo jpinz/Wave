@@ -1,14 +1,3 @@
-/*
- * Copyright (C) 2012 Andrew Neal Licensed under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with the
- * License. You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law
- * or agreed to in writing, software distributed under the License is
- * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
-
 package me.jpinz.wave.utils;
 
 import android.app.Activity;
@@ -38,7 +27,6 @@ import android.view.Menu;
 import android.view.SubMenu;
 import android.widget.Toast;
 
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.Formatter;
@@ -56,12 +44,11 @@ import me.jpinz.wave.menu.FragmentMenuItems;
 import me.jpinz.wave.provider.FavoritesStore;
 import me.jpinz.wave.provider.RecentStore;
 
+
 /**
- * A collection of helpers directly related to music or Apollo's service.
- *
- * @author Andrew Neal (andrewdneal@gmail.com)
+ * Created by Julian on 8/4/2015.
  */
-public final class MusicUtils {
+public class MusicUtils {
 
     public static IWaveService mService = null;
 
@@ -241,7 +228,7 @@ public final class MusicUtils {
      */
     public static void previous(final Context context) {
         final Intent previous = new Intent(context, MusicPlaybackService.class);
-        previous.setAction(MusicPlaybackService.PREVIOUS_ACTION);
+        //previous.setAction(MusicPlaybackService.PREVIOUS_ACTION);
         context.startService(previous);
     }
 
@@ -264,7 +251,7 @@ public final class MusicUtils {
     /**
      * Cycles through the repeat options.
      */
-    public static void cycleRepeat() {
+    /*public static void cycleRepeat() {
         try {
             if (mService != null) {
                 switch (mService.getRepeatMode()) {
@@ -284,12 +271,12 @@ public final class MusicUtils {
             }
         } catch (final RemoteException ignored) {
         }
-    }
+    }*/
 
     /**
      * Cycles through the shuffle options.
      */
-    public static void cycleShuffle() {
+    /*public static void cycleShuffle() {
         try {
             if (mService != null) {
                 switch (mService.getShuffleMode()) {
@@ -311,7 +298,7 @@ public final class MusicUtils {
             }
         } catch (final RemoteException ignored) {
         }
-    }
+    }*/
 
     /**
      * @return True if we're playing music, false otherwise.
@@ -580,9 +567,9 @@ public final class MusicUtils {
         }
         try {
             if (forceShuffle) {
-                mService.setShuffleMode(MusicPlaybackService.SHUFFLE_NORMAL);
+                //mService.setShuffleMode(MusicPlaybackService.SHUFFLE_NORMAL);
             } else {
-                mService.setShuffleMode(MusicPlaybackService.SHUFFLE_NONE);
+                //mService.setShuffleMode(MusicPlaybackService.SHUFFLE_NONE);
             }
             final long currentId = mService.getAudioId();
             final int currentQueuePosition = getQueuePosition();
@@ -605,7 +592,7 @@ public final class MusicUtils {
     /**
      * @param list The list to enqueue.
      */
-    public static void playNext(final long[] list) {
+    /*public static void playNext(final long[] list) {
         if (mService == null) {
             return;
         }
@@ -613,7 +600,7 @@ public final class MusicUtils {
             mService.enqueue(list, MusicPlaybackService.NEXT);
         } catch (final RemoteException ignored) {
         }
-    }
+    }*/
 
     /**
      * @param context The {@link Context} to use.
@@ -626,7 +613,7 @@ public final class MusicUtils {
             return;
         }
         try {
-            mService.setShuffleMode(MusicPlaybackService.SHUFFLE_NORMAL);
+            //mService.setShuffleMode(MusicPlaybackService.SHUFFLE_NORMAL);
             final long mCurrentId = mService.getAudioId();
             final int mCurrentQueuePosition = getQueuePosition();
             if (position != -1 && mCurrentQueuePosition == position
@@ -831,14 +818,14 @@ public final class MusicUtils {
         }
         final String message = context.getResources().getQuantityString(
                 R.plurals.NNNtrackstoplaylist, numinserted, numinserted);
-        Toast.makeText((Activity) context, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
     /**
      * @param context The {@link Context} to use.
      * @param list The list to enqueue.
      */
-    public static void addToQueue(final Context context, final long[] list) {
+    /*public static void addToQueue(final Context context, final long[] list) {
         if (mService == null) {
             return;
         }
@@ -849,7 +836,7 @@ public final class MusicUtils {
             Toast.makeText((Activity)context, message, Toast.LENGTH_SHORT).show();
         } catch (final RemoteException ignored) {
         }
-    }
+    }*/
 
     /**
      * @param context The {@link Context} to use
@@ -880,7 +867,7 @@ public final class MusicUtils {
                 Settings.System.putString(resolver, Settings.System.RINGTONE, uri.toString());
                 final String message = context.getString(R.string.set_as_ringtone,
                         cursor.getString(2));
-                Toast.makeText((Activity)context, message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
             }
         } finally {
             if (cursor != null) {
@@ -1236,7 +1223,7 @@ public final class MusicUtils {
      */
     public static void startBackgroundService(final Context context) {
         final Intent startBackground = new Intent(context, MusicPlaybackService.class);
-        startBackground.setAction(MusicPlaybackService.START_BACKGROUND);
+        //startBackground.setAction(MusicPlaybackService.START_BACKGROUND);
         context.startService(startBackground);
     }
 
@@ -1247,7 +1234,7 @@ public final class MusicUtils {
      */
     public static void killForegroundService(final Context context) {
         final Intent killForeground = new Intent(context, MusicPlaybackService.class);
-        killForeground.setAction(MusicPlaybackService.KILL_FOREGROUND);
+        //killForeground.setAction(MusicPlaybackService.KILL_FOREGROUND);
         context.startService(killForeground);
     }
 
@@ -1334,7 +1321,7 @@ public final class MusicUtils {
         final String message = context.getResources().getQuantityString(R.plurals.NNNtracksdeleted,
                 list.length, Integer.valueOf(list.length));
 
-        Toast.makeText((Activity)context, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
         // We deleted a number of tracks, which could affect any number of
         // things
         // in the media content domain, so update everything.

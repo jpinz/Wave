@@ -1,6 +1,5 @@
 package me.jpinz.wave.provider;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -209,22 +208,22 @@ public class FavoritesStore extends SQLiteOpenHelper {
     public interface FavoriteColumns {
 
         /* Table name */
-        public static final String NAME = "favorites";
+        String NAME = "favorites";
 
         /* Song IDs column */
-        public static final String ID = "songid";
+        String ID = "songid";
 
         /* Song name column */
-        public static final String SONGNAME = "songname";
+        String SONGNAME = "songname";
 
         /* Album name column */
-        public static final String ALBUMNAME = "albumname";
+        String ALBUMNAME = "albumname";
 
         /* Artist name column */
-        public static final String ARTISTNAME = "artistname";
+        String ARTISTNAME = "artistname";
 
         /* Play count column */
-        public static final String PLAYCOUNT = "playcount";
+        String PLAYCOUNT = "playcount";
     }
 
 }

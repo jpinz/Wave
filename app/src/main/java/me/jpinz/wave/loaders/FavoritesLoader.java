@@ -1,16 +1,15 @@
 package me.jpinz.wave.loaders;
 
-
 import android.content.Context;
 import android.database.Cursor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import me.jpinz.wave.models.Song;
 import me.jpinz.wave.provider.FavoritesStore;
 import me.jpinz.wave.provider.FavoritesStore.FavoriteColumns;
 import me.jpinz.wave.utils.Lists;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Used to query the {@link FavoritesStore} for the tracks marked as favorites.

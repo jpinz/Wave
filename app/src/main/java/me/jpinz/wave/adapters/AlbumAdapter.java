@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import me.jpinz.wave.R;
 import me.jpinz.wave.models.Album;
 import me.jpinz.wave.ui.activities.ProfileActivity;
-import me.jpinz.wave.utils.WaveUtils;
 
 public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -134,6 +133,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 Intent i = new Intent(mContext, ProfileActivity.class);
                 i.putExtra("ALBUM_NAME", albums.get(pos).getTitle());
                 i.putExtra("ALBUM_ART", albums.get(pos).getAlbumArt());
+
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(i);
                 Toast.makeText(mContext,albums.get(pos).getTitle(),Toast.LENGTH_SHORT).show();

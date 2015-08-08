@@ -1,4 +1,6 @@
+// IWaveService.aidl
 package me.jpinz.wave;
+
 
 import android.graphics.Bitmap;
 

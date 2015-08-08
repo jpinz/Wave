@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import me.jpinz.wave.R;
 import me.jpinz.wave.adapters.FragmentAdapter;
 import me.jpinz.wave.ui.fragments.AlbumsFragment;
+import me.jpinz.wave.ui.fragments.SongFragment;
 
 
 public class HomeActivity extends BaseActivity {
@@ -27,6 +28,7 @@ public class HomeActivity extends BaseActivity {
             //        .replace(R.id.activity_base_content, new AlbumsFragment()).commit();
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -72,7 +74,7 @@ public class HomeActivity extends BaseActivity {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
         adapter.addFragment(new AlbumsFragment(), "Artists");
         adapter.addFragment(new AlbumsFragment(), "Albums");
-        adapter.addFragment(new AlbumsFragment(), "Songs");
+        adapter.addFragment(new SongFragment(), "Songs");
         adapter.addFragment(new AlbumsFragment(), "Playlists");
 
         viewPager.setAdapter(adapter);

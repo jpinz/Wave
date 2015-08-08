@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 
+import me.jpinz.wave.ui.activities.ProfileActivity;
+
 
 /**
  * The {@link RecentlyListenedFragment} is used to display a a grid or list of
@@ -169,24 +171,24 @@ public class RecentStore extends SQLiteOpenHelper {
     public interface RecentStoreColumns {
 
         /* Table name */
-        public static final String NAME = "albumhistory";
+        String NAME = "albumhistory";
 
         /* Album IDs column */
-        public static final String ID = "albumid";
+        String ID = "albumid";
 
         /* Album name column */
-        public static final String ALBUMNAME = "itemname";
+        String ALBUMNAME = "itemname";
 
         /* Artist name column */
-        public static final String ARTISTNAME = "artistname";
+        String ARTISTNAME = "artistname";
 
         /* Album song count column */
-        public static final String ALBUMSONGCOUNT = "albumsongcount";
+        String ALBUMSONGCOUNT = "albumsongcount";
 
         /* Album year column. It's okay for this to be null */
-        public static final String ALBUMYEAR = "albumyear";
+        String ALBUMYEAR = "albumyear";
 
         /* Time played column */
-        public static final String TIMEPLAYED = "timeplayed";
+        String TIMEPLAYED = "timeplayed";
     }
 }

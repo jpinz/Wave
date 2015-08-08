@@ -1,15 +1,10 @@
 package me.jpinz.wave.models;
 
-import android.text.TextUtils;
-
-import java.util.concurrent.TimeUnit;
-
 /**
  * A class that represents a song.
  *
  * @author Andrew Neal (andrewdneal@gmail.com)
  */
-
 public class Song {
 
     /**

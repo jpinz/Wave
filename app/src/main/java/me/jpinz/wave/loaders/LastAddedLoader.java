@@ -7,11 +7,11 @@ import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.AudioColumns;
 
-import me.jpinz.wave.models.Song;
-import me.jpinz.wave.utils.Lists;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import me.jpinz.wave.models.Song;
+import me.jpinz.wave.utils.Lists;
 
 /**
  * Used to query {@link MediaStore.Audio.Media.EXTERNAL_CONTENT_URI} and return

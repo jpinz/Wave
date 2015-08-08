@@ -1,12 +1,8 @@
 package me.jpinz.wave.utils;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
-import android.app.AlertDialog;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -14,8 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -23,20 +18,14 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
-import me.jpinz.wave.Config;
 import me.jpinz.wave.R;
-import me.jpinz.wave.cache.ImageCache;
-import me.jpinz.wave.cache.ImageFetcher;
-import me.jpinz.wave.models.Album;
 
 /**
  * Created by Julian on 7/19/2015.
  */
 public class WaveUtils {
     public static final String WV = "WV";
-
     /**
      * The threshold used calculate if a color is light or dark
      */
@@ -44,6 +33,16 @@ public class WaveUtils {
 
     /* This class is never initiated */
     public WaveUtils() {
+    }
+
+    /**
+     * Used to determine if the current device is a Google TV
+     *
+     * @param context The {@link Context} to use
+     * @return True if the device has Google TV, false otherwise
+     */
+    public static final boolean isGoogleTV(final Context context) {
+        return context.getPackageManager().hasSystemFeature("com.google.android.tv");
     }
 
     /**
@@ -124,6 +123,7 @@ public class WaveUtils {
     public static final boolean isLandscape(final Context context) {
         return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
+
     /**
      * Execute an {@link AsyncTask} on a thread pool
      *
@@ -243,11 +243,11 @@ public class WaveUtils {
     /**
      * @param context The {@link Context} to use.
      * @return An {@link AlertDialog} used to show the open source licenses used
-     *         in Wave.
+     *         in Apollo.
      */
     public static final AlertDialog createOpenSourceDialog(final Context context) {
         final WebView webView = new WebView(context);
-        webView.loadUrl("file:///assets/licenses.html");
+        webView.loadUrl("file:///asset/licenses.html");
         return new AlertDialog.Builder(context).setTitle(R.string.settings_open_source_licenses)
                 .setView(webView)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -267,6 +267,7 @@ public class WaveUtils {
     public static final boolean isColorDark(final int color) {
         return (30 * Color.red(color) + 59 * Color.green(color) + 11 * Color.blue(color)) / 100 <= BRIGHTNESS_THRESHOLD;
     }
+
     /**
      * Runs a piece of code after the next layout run
      *
@@ -291,33 +292,4 @@ public class WaveUtils {
         view.getViewTreeObserver().addOnGlobalLayoutListener(listener);
     }
 
-    /**
-     * Creates a new instance of the {@link ImageCache} and {@link ImageFetcher}
-     *
-     * @param activity The {@link FragmentActivity} to use.
-     * @return A new {@link ImageFetcher} used to fetch images asynchronously.
-     */
-    public static final ImageFetcher getImageFetcher(final FragmentActivity activity) {
-        final ImageFetcher imageFetcher = ImageFetcher.getInstance(activity);
-        imageFetcher.setImageCache(ImageCache.findOrCreateCache(activity));
-        return imageFetcher;
-    }
-
-    /**
-     * Used to know if Wave was sent into the background
-     *
-     * @param context The {@link Context} to use
-     */
-    public static final boolean isApplicationSentToBackground(final Context context) {
-        final ActivityManager activityManager = (ActivityManager)context
-                .getSystemService(Context.ACTIVITY_SERVICE);
-        final List<ActivityManager.RunningTaskInfo> tasks = activityManager.getRunningTasks(1);
-        if (!tasks.isEmpty()) {
-            final ComponentName topActivity = tasks.get(0).topActivity;
-            if (!topActivity.getPackageName().equals(context.getPackageName())) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

@@ -8,12 +8,12 @@ import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.PlaylistsColumns;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.jpinz.wave.R;
 import me.jpinz.wave.models.Playlist;
 import me.jpinz.wave.utils.Lists;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Used to query {@link MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI} and

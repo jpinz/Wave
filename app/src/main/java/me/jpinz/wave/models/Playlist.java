@@ -1,7 +1,5 @@
 package me.jpinz.wave.models;
 
-import android.text.TextUtils;
-
 /**
  * A class that represents a playlist.
  *

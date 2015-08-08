@@ -1,6 +1,5 @@
 package me.jpinz.wave.utils;
 
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 

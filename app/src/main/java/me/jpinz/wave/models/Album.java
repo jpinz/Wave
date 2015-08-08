@@ -1,13 +1,6 @@
 package me.jpinz.wave.models;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.text.TextUtils;
-import android.widget.ImageView;
-
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * A class that represents an album.
@@ -108,10 +101,7 @@ public class Album {
         if (mSongNumber != other.mSongNumber) {
             return false;
         }
-        if (!TextUtils.equals(mYear, other.mYear)) {
-            return false;
-        }
-        return true;
+        return TextUtils.equals(mYear, other.mYear);
     }
 
     /**

@@ -24,6 +24,7 @@
     <dimen name="item_margin">1dp</dimen>
     <dimen name="item_margin_half">1dp</dimen>
 
+
     <!-- Text sizes -->
     <dimen name="text_size_extra_micro">10.0sp</dimen>
     <dimen name="text_size_micro">12.0sp</dimen>

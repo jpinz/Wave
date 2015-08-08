@@ -1,9 +1,11 @@
 package me.jpinz.wave.loaders;
 
+
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Audio.AudioColumns;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,12 @@ import me.jpinz.wave.models.Song;
 import me.jpinz.wave.utils.Lists;
 import me.jpinz.wave.utils.PreferenceUtils;
 
+/**
+ * Used to query {@link MediaStore.Audio.Media.EXTERNAL_CONTENT_URI} and return
+ * the songs on a user's device.
+ *
+ * @author Andrew Neal (andrewdneal@gmail.com)
+ */
 public class SongLoader extends WrappedAsyncTaskLoader<List<Song>> {
 
     /**
@@ -44,7 +52,7 @@ public class SongLoader extends WrappedAsyncTaskLoader<List<Song>> {
         if (mCursor != null && mCursor.moveToFirst()) {
             do {
                 // Copy the song Id
-                final long id = mCursor.getLong(0);
+                final String id = mCursor.getString(0);
 
                 // Copy the song name
                 final String songName = mCursor.getString(1);
@@ -55,11 +63,8 @@ public class SongLoader extends WrappedAsyncTaskLoader<List<Song>> {
                 // Copy the album name
                 final String album = mCursor.getString(3);
 
-                // Copy the song duration
-                final int duration = mCursor.getInt(4);
-
                 // Create a new song
-                final Song song = new Song(id, songName, artist, album, duration);
+                final Song song = new Song(id, songName, artist, album, null);
 
                 // Add everything up
                 mSongList.add(song);
@@ -81,22 +86,19 @@ public class SongLoader extends WrappedAsyncTaskLoader<List<Song>> {
      */
     public static final Cursor makeSongCursor(final Context context) {
         final StringBuilder mSelection = new StringBuilder();
-        mSelection.append(MediaStore.Audio.AudioColumns.IS_MUSIC + "=1");
-        mSelection.append(" AND " + MediaStore.Audio.AudioColumns.TITLE + " != ''"); //$NON-NLS-2$
+        mSelection.append(AudioColumns.IS_MUSIC + "=1");
+        mSelection.append(" AND " + AudioColumns.TITLE + " != ''"); //$NON-NLS-2$
         return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 new String[] {
                         /* 0 */
                         BaseColumns._ID,
                         /* 1 */
-                        MediaStore.Audio.AudioColumns.TITLE,
+                        AudioColumns.TITLE,
                         /* 2 */
-                        MediaStore.Audio.AudioColumns.ARTIST,
+                        AudioColumns.ARTIST,
                         /* 3 */
-                        MediaStore.Audio.AudioColumns.ALBUM,
-                        /* 4 */
-                        MediaStore.Audio.AudioColumns.DURATION
+                        AudioColumns.ALBUM
                 }, mSelection.toString(), null,
-                //PreferenceUtils.getInstace(context).getSongSortOrder()
-                null );
+                PreferenceUtils.getInstace(context).getSongSortOrder());
     }
 }
