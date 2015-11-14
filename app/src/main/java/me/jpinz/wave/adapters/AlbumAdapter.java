@@ -5,9 +5,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.bumptech.glide.Glide;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -42,27 +50,39 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent,final int pos) {
         //map to song layout
-        final TextView albumView = (TextView) albumInf.inflate
-                (R.layout.model_temp_textview, parent, false);
+        final RelativeLayout albumView = (RelativeLayout) albumInf.inflate
+                (R.layout.item_album, parent, false);
         //get title and artist views
-        TextView albumText = (TextView) albumView.findViewById(R.id.tempText);
+        TextView albumText = (TextView) albumView.findViewById(R.id.album_title);
+        TextView artistText = (TextView) albumView.findViewById(R.id.album_artist);
+        ImageView albumArt = (ImageView) albumView.findViewById(R.id.album_art);
         //get song using position
         currAlbum = albums.get(pos);
         //albums.get(pos) = currAlbum.setTag(pos);
         //get title and artist strings
         albumText.setText(currAlbum.getTitle());
+        artistText.setText(currAlbum.getArtist() + " | " + numSongs(currAlbum));
 
+        ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
+        int color = generator.getColor(currAlbum.getTitle());
+        final TextDrawable drawable = TextDrawable.builder()
+                .buildRect(currAlbum.getTitle().substring(0,1).toUpperCase(), color);
+
+        Glide.with(mContext)
+                .load("file://" + currAlbum.getAlbumArt())
+                .placeholder(drawable)
+                .crossFade().into(albumArt);
 
         return new RecyclerView.ViewHolder(albumView) {
 
         };
     }
 
-    private String numSongs() {
-        if (currAlbum.getNumSongs() == 1) {
-            return " song";
+    private String numSongs(Album album) {
+        if (album.getNumSongs() == 1) {
+            return album.getNumSongs() + " song";
         }
-        return " songs";
+        return album.getNumSongs() + " songs";
     }
 
     @Override
