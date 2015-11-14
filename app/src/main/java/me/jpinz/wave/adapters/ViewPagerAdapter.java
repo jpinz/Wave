@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import me.jpinz.wave.ui.fragments.AlbumsFragment;
+import me.jpinz.wave.ui.fragments.AlbumFragment;
 
 /**
  * Created by Julian on 5/8/2015.
@@ -31,14 +31,14 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                return new AlbumsFragment();
+                return new AlbumFragment();
             case 1:
-                return new AlbumsFragment();
+                return new AlbumFragment();
             case 2:
-                return new AlbumsFragment();
+                return new AlbumFragment();
 
         }
-        return new AlbumsFragment();
+        return new AlbumFragment();
 
     }
 
